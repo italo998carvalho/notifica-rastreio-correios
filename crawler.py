@@ -3,6 +3,7 @@ import os
 from enum import Enum
 from bs4 import BeautifulSoup as bs
 from cleantext import clean
+from send_email.mail_sender import MailSender
 
 codigo_de_rastreio = 'PU333550834BR'
 
@@ -23,10 +24,17 @@ detalhe_evento_formatado = clean(detalhe_evento_sem_pontuacao)
 
 with open('ultimo_evento.txt', 'r+') as file_:
     itens_do_arquivo = file_.readlines()
+
+    mail_sender = MailSender(detalhe_evento_formatado, os.environ['RECEIVER_EMAIL'])
+
     if len(itens_do_arquivo) > 0:
         ultimo_evento = itens_do_arquivo[0]
         if ultimo_evento != detalhe_evento_formatado:
             cmd = f'sed -i "s#{ultimo_evento}#{detalhe_evento_formatado}#g" ultimo_evento.txt'
             os.system(cmd)
+
+            mail_sender.send()
     else:
         file_.write(detalhe_evento_formatado)
+
+        mail_sender.send()
