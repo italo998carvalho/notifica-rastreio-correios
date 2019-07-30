@@ -1,5 +1,5 @@
 import requests
-import os
+from config import receiver_email
 from enum import Enum
 from bs4 import BeautifulSoup as bs
 from cleantext import clean
@@ -25,7 +25,7 @@ detalhe_evento_formatado = clean(detalhe_evento_sem_pontuacao)
 with open('ultimo_evento.txt', 'r+') as file_:
     itens_do_arquivo = file_.readlines()
 
-    mail_sender = MailSender(detalhe_evento_formatado, os.environ['RECEIVER_EMAIL'])
+    mail_sender = MailSender(detalhe_evento_formatado, receiver_email)
 
     if len(itens_do_arquivo) > 0:
         ultimo_evento = itens_do_arquivo[0]

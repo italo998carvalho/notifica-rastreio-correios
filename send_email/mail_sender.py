@@ -1,6 +1,7 @@
 import smtplib
 import ssl
-import os
+from config import sender_email
+from config import sender_password
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
     
@@ -11,8 +12,8 @@ class MailSender:
 
         self.msg = MIMEMultipart()
 
-        self.sender_email = os.environ['EMAIL']
-        self.sender_password = os.environ['PASSWORD']
+        self.sender_email = sender_email
+        self.sender_password = sender_password
 
         self.server = smtplib.SMTP('smtp.gmail.com: 587')
 
