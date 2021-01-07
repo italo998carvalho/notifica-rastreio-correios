@@ -4,7 +4,7 @@ chardet==3.0.4
 clean-text==0.1.1
 ftfy==5.5.1
 idna==2.8
-lxml==4.4.0
+lxml==4.6.2
 requests==2.22.0
 soupsieve==1.9.2
 Unidecode==1.1.1
